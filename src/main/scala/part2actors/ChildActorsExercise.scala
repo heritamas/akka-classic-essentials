@@ -35,7 +35,7 @@ object ChildActorsExercise extends App {
       case WordCountReply(id, count) =>
         println(s"[master] I have received a reply for task id $id with $count")
         val originalSender = requestMap(id)
-        originalSender ! count
+        originalSender ! WordCountReply(id, count)
         context.become(withChildren(childrenRefs, currentChildIndex, currentTaskId, requestMap - id))
     }
   }
@@ -59,8 +59,8 @@ object ChildActorsExercise extends App {
         master ! Initialize(3)
         val texts = List("I love Akka", "Scala is super dope", "yes", "me too")
         texts.foreach(text => master ! text)
-      case count: Int =>
-        println(s"[test actor] I received a reply: $count")
+      case WordCountReply(id, count) =>
+        println(s"[test actor] I received a reply: $count for $id")
     }
   }
 

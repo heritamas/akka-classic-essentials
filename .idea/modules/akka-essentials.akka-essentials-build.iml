@@ -17,6 +17,11 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library name="sbt: sbt-1.2.6">
         <CLASSES>
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-3.0.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna-platform/jars/jna-platform-4.5.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/jna/jars/jna-4.5.0.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/scala_2.12/sbt_1.0/ch.epfl.scala/sbt-bloop/jars/sbt-bloop-1.4.6.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.12.7/lib/scala-compiler.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.12.7/lib/scala-library.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.12.7/lib/scala-reflect.jar!/" />
@@ -111,7 +116,7 @@
   </component>
   <component name="SbtModule">
     <option name="buildForURI" value="file:$MODULE_DIR$/../../" />
-    <option name="imports" value="_root_.sbt.Keys._, _root_.sbt.ScriptedPlugin.autoImport._, _root_.sbt._, _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.scala.xml.{TopScope=&gt;SUB:DOLLARscope}" />
+    <option name="imports" value="_root_.sbt.Keys._, _root_.sbt.ScriptedPlugin.autoImport._, _root_.bloop.integrations.sbt.BloopPlugin.autoImport._, _root_.sbt._, _root_.sbt.plugins.IvyPlugin, _root_.sbt.plugins.JvmPlugin, _root_.sbt.plugins.CorePlugin, _root_.sbt.ScriptedPlugin, _root_.sbt.plugins.SbtPlugin, _root_.sbt.plugins.JUnitXmlReportPlugin, _root_.sbt.plugins.Giter8TemplatePlugin, _root_.bloop.integrations.sbt.BloopPlugin, _root_.scala.xml.{TopScope=&gt;SUB:DOLLARscope}" />
     <option name="resolvers" value="https://repo.artima.com/releases|maven|Artima Maven Repository, /home/tomi/.ivy2/cache|ivy|true|Local cache, https://repo1.maven.org/maven2/|maven|public" />
   </component>
 </module>

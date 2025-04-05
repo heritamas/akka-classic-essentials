@@ -32,13 +32,13 @@ object ChangingActorBehavior extends App {
 
     override def receive: Receive = happyReceive
 
-    def happyReceive: Receive = {
+    val happyReceive: Receive = {
       case Food(VEGETABLE) => context.become(sadReceive, false) // change my receive handler to sadReceive
       case Food(CHOCOLATE) =>
       case Ask(_) => sender() ! KidAccept
     }
 
-    def sadReceive: Receive = {
+    val sadReceive: Receive = {
       case Food(VEGETABLE) => context.become(sadReceive, false)
       case Food(CHOCOLATE) => context.unbecome()
       case Ask(_) => sender() ! KidReject
