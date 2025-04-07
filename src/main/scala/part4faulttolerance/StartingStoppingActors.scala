@@ -43,34 +43,34 @@ object StartingStoppingActors extends App {
     * method #1 - using context.stop
     */
   import Parent._
-  //  val parent = system.actorOf(Props[Parent], "parent")
-  //  parent ! StartChild("child1")
-  //  val child = system.actorSelection("/user/parent/child1")
-  //  child ! "hi kid!"
-  //
-  //  parent ! StopChild("child1")
-  ////  for (_ <- 1 to 50) child ! "are you still there?"
-  //
-  //  parent ! StartChild("child2")
-  //  val child2 = system.actorSelection("user/parent/child2")
-  //  child2 ! "hi, second child"
-  //
-  //  parent ! Stop
-  //  for (_ <- 1 to 10) parent ! "parent, are you still there?" // should not be received
-  //  for (i <- 1 to 100) child2 ! s"[$i] second kid, are you still alive?"
+//  val parent = system.actorOf(Props[Parent], "parent")
+//  parent ! StartChild("child1")
+//  val child = system.actorSelection("/user/parent/child1")
+//  child ! "hi kid!"
+//
+//  parent ! StopChild("child1")
+//  for (_ <- 1 to 50) child ! "are you still there?"
+//
+//  parent ! StartChild("child2")
+//  val child2 = system.actorSelection("user/parent/child2")
+//  child2 ! "hi, second child"
+//
+//  parent ! Stop
+//  for (_ <- 1 to 10) parent ! "parent, are you still there?" // should not be received
+//  for (i <- 1 to 100) child2 ! s"[$i] second kid, are you still alive?"
 
   /**
     * method #2 - using special messages
     */
-  //  val looseActor = system.actorOf(Props[Child])
-  //  looseActor ! "hello, loose actor"
-  //  looseActor ! PoisonPill
-  //  looseActor ! "loose actor, are you still there?"
-  //
-  //  val abruptlyTerminatedActor = system.actorOf(Props[Child])
-  //  abruptlyTerminatedActor ! "you are about to be terminated"
-  //  abruptlyTerminatedActor ! Kill
-  //  abruptlyTerminatedActor ! "you have been terminated"
+//  val looseActor = system.actorOf(Props[Child])
+//  looseActor ! "hello, loose actor"
+//  looseActor ! PoisonPill
+//  looseActor ! "loose actor, are you still there?"
+//
+//  val abruptlyTerminatedActor = system.actorOf(Props[Child])
+//  abruptlyTerminatedActor ! "you are about to be terminated"
+//  abruptlyTerminatedActor ! Kill
+//  abruptlyTerminatedActor ! "you have been terminated"
 
   /**
     *  Death watch
