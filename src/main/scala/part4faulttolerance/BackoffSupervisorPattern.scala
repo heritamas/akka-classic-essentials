@@ -33,8 +33,8 @@ object BackoffSupervisorPattern extends App {
   }
 
   val system = ActorSystem("BackoffSupervisorDemo")
-  //  val simpleActor = system.actorOf(Props[FileBasedPersistentActor], "simpleActor")
-  //  simpleActor ! ReadFile
+//  val simpleActor = system.actorOf(Props[FileBasedPersistentActor], "simpleActor")
+//  simpleActor ! ReadFile
 
   val simpleSupervisorProps = BackoffSupervisor.props(
     Backoff.onFailure(
@@ -46,8 +46,8 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
-  //  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
-  //  simpleBackoffSupervisor ! ReadFile
+//  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
+//  simpleBackoffSupervisor ! ReadFile
 
   /*
     simpleSupervisor
@@ -71,13 +71,13 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
-  //  val stopSupervisor = system.actorOf(stopSupervisorProps, "stopSupervisor")
-  //  stopSupervisor ! ReadFile
+//  val stopSupervisor = system.actorOf(stopSupervisorProps, "stopSupervisor")
+//  stopSupervisor ! ReadFile
 
   class EagerFBPActor extends FileBasedPersistentActor {
     override def preStart(): Unit = {
       log.info("Eager actor starting")
-      dataSource = Source.fromFile(new File("src/main/resources/testfiles/important_data.txt"))
+      dataSource = Source.fromFile(new File("src/main/resources/testfiles/important_data.text"))
     }
   }
 
@@ -93,6 +93,7 @@ object BackoffSupervisorPattern extends App {
     )
   )
   val repeatedSupervisor = system.actorOf(repeatedSupervisorProps, "eagerSupervisor")
+  repeatedSupervisor ! ReadFile
 
   /*
     eagerSupervisor
