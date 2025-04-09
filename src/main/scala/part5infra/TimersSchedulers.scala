@@ -13,23 +13,24 @@ object TimersSchedulers extends App {
   }
 
   val system = ActorSystem("SchedulersTimersDemo")
-  //  val simpleActor = system.actorOf(Props[SimpleActor])
+  val simpleActor = system.actorOf(Props[SimpleActor])
 
-  //  system.log.info("Scheduling reminder for simpleActor")
+  system.log.info("Scheduling reminder for simpleActor")
 
   import system.dispatcher
 
-  //  system.scheduler.scheduleOnce(1 second) {
-  //    simpleActor ! "reminder"
-  //  }
-  //
-  //  val routine: Cancellable = system.scheduler.schedule(1 second, 2 seconds) {
-  //    simpleActor ! "heartbeat"
-  //  }
-  //
-  //  system.scheduler.scheduleOnce(5 seconds) {
-  //    routine.cancel()
-  //  }
+//  system.scheduler.scheduleOnce(1 second) {
+//    simpleActor ! "reminder"
+//  }
+//
+//  val routine: Cancellable = system.scheduler.schedule(1 second, 2 seconds) {
+//    simpleActor ! "heartbeat"
+//  }
+//
+//  system.scheduler.scheduleOnce(5 seconds) {
+//    system.log.info("Gonna cancel the heartbeat")
+//    routine.cancel()
+//  }
 
   /**
     * Exercise: implement a self-closing actor
@@ -39,35 +40,66 @@ object TimersSchedulers extends App {
     * - if you send another message, the time window is reset
     */
 
-  class SelfClosingActor extends Actor with ActorLogging {
-    var schedule = createTimeoutWindow()
+//  class SelfClosingActor extends Actor with ActorLogging {
+//    var schedule = createTimeoutWindow()
+//
+//    def createTimeoutWindow(): Cancellable = {
+//      context.system.scheduler.scheduleOnce(1 second) {
+//        self ! "timeout"
+//      }
+//    }
+//
+//    override def receive: Receive = {
+//      case "timeout" =>
+//        log.info("Stopping myself")
+//        context.stop(self)
+//      case message =>
+//        log.info(s"Received $message, staying alive")
+//        schedule.cancel()
+//        schedule = createTimeoutWindow()
+//    }
+//  }
 
-    def createTimeoutWindow(): Cancellable = {
+  class SelfClosingActor extends Actor with ActorLogging {
+    // Start with the initial behavior that includes a timeout window
+    override def receive: Receive = createReceiveWithTimeout()
+
+    private def createReceiveWithTimeout(): Receive = {
+      // Create a new timeout window as a val
+      val schedule = createTimeoutWindow()
+
+      {
+        case "timeout" =>
+          log.info("Stopping myself")
+          context.stop(self)
+        case message =>
+          log.info(s"Received $message, staying alive")
+          schedule.cancel()
+          // Replace current behavior with new one containing fresh timeout
+          context.become(createReceiveWithTimeout())
+      }
+    }
+
+    private def createTimeoutWindow(): Cancellable = {
       context.system.scheduler.scheduleOnce(1 second) {
         self ! "timeout"
       }
     }
-
-    override def receive: Receive = {
-      case "timeout" =>
-        log.info("Stopping myself")
-        context.stop(self)
-      case message =>
-        log.info(s"Received $message, staying alive")
-        schedule.cancel()
-        schedule = createTimeoutWindow()
-    }
   }
 
-  //  val selfClosingActor = system.actorOf(Props[SelfClosingActor], "selfClosingActor")
-  //  system.scheduler.scheduleOnce(250 millis) {
-  //    selfClosingActor ! "ping"
-  //  }
-  //
-  //  system.scheduler.scheduleOnce(2 seconds) {
-  //    system.log.info("sending pong to the self-closing actor")
-  //    selfClosingActor ! "pong"
-  //  }
+//  val selfClosingActor = system.actorOf(Props[SelfClosingActor], "selfClosingActor")
+//  val repeater = system.scheduler.schedule(250 millis, 500 millis) {
+//    selfClosingActor ! "ping"
+//  }
+//  system.scheduler.scheduleOnce(3 seconds) {
+//    system.log.info("Gonna cancel the repeater")
+//    repeater.cancel()
+//  }
+//
+//  system.scheduler.scheduleOnce(5 seconds) {
+//    system.log.info("sending pong to the self-closing actor")
+//    selfClosingActor ! "pong"
+//  }
 
   /**
     * Timer
