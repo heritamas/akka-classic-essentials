@@ -22,10 +22,10 @@ object Dispatchers extends App {
 
   // method #1 - programmatic/in code
   val actors = for (i <- 1 to 10) yield system.actorOf(Props[Counter].withDispatcher("my-dispatcher"), s"counter_$i")
-  //  val r = new Random()
-  //  for (i <- 1 to 1000) {
-  //    actors(r.nextInt(10)) ! i
-  //  }
+//  val r = new Random()
+//  for (i <- 1 to 1000) {
+//    actors(r.nextInt(10)) ! i
+//  }
 
   // method #2 - from config
   val rtjvmActor = system.actorOf(Props[Counter], "rtjvm")
@@ -37,6 +37,7 @@ object Dispatchers extends App {
   class DBActor extends Actor with ActorLogging {
     // solution #1
     implicit val executionContext: ExecutionContext = context.system.dispatchers.lookup("my-dispatcher")
+    //implicit val executionContext: ExecutionContext = context.dispatcher
     // solution #2 - use Router
 
     override def receive: Receive = {
@@ -49,12 +50,13 @@ object Dispatchers extends App {
   }
 
   val dbActor = system.actorOf(Props[DBActor])
-  //  dbActor ! "the meaning of life is 42"
+  dbActor ! "the meaning of life is 42"
 
   val nonblockingActor = system.actorOf(Props[Counter])
-  for (i <- 1 to 1000) {
-    val message = s"important message $i"
-    dbActor ! message
-    nonblockingActor ! message
-  }
+//  for (i <- 1 to 1000) {
+//    val message = s"important message $i"
+//    dbActor ! message
+//    nonblockingActor ! message
+//  }
+
 }
