@@ -170,12 +170,12 @@ object FSMSpec {
   }
 
   // step 1 - define the states and the data of the actor
-  trait VendingState
+  class VendingState
   case object Idle extends VendingState
   case object Operational extends VendingState
   case object WaitForMoney extends VendingState
 
-  trait VendingData
+  class VendingData
   case object Uninitialized extends VendingData
   case class Initialized(inventory: Map[String, Int], prices: Map[String, Int]) extends VendingData
   case class WaitForMoneyData(inventory: Map[String, Int], prices: Map[String, Int], product: String, money: Int, requester: ActorRef) extends VendingData
